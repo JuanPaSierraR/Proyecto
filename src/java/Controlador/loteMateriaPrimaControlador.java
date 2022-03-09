@@ -5,8 +5,8 @@
  */
 package Controlador;
 
-import ModeloDAO.UsuarioDAO;
-import ModeloVO.UsuarioVO;
+import ModeloDAO.loteMateriaPrimaDAO;
+import ModeloVO.loteMateriaPrimaVO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Juan Pablo
+ * @author Sena
  */
-@WebServlet(name = "UsuariosControlador", urlPatterns = {"/Usuarios"})
-public class UsuariosControlador extends HttpServlet {
+@WebServlet(name = "loteMateriaPrimaControlador", urlPatterns = {"/loteMateriaPrima"})
+public class loteMateriaPrimaControlador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,85 +34,66 @@ public class UsuariosControlador extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        // 1. Recibir datos de la vista
-        String Id_Usuarios = request.getParameter("txtId");
-        String Documento = request.getParameter("txtDocumento");
-        String Contrasena = request.getParameter("txtContrasena"); 
-        String Nombre = request.getParameter("txtNombre");
-        String Telefono = request.getParameter("txtTelefono");
-        String Email = request.getParameter("txtEmail");
-        String Direccion = request.getParameter("txtDireccion");
-        String Estado = request.getParameter("txtEstado");
-        
+        String IdLoteMateriaPrima = request.getParameter("txtIdLoteMateriaPrima");
+        String Cantidad = request.getParameter("txtCantidad");
+        String Observaciones = request.getParameter("txtObservaciones");
+        String FechaIngreso = request.getParameter("txtFechaIngreso");
+        String FechaSalida = request.getParameter("txtFechaSalida");
+        String IdMateriaPrima = request.getParameter("txtIdMateriaPrima");
 
         int opcion = Integer.parseInt(request.getParameter("opcion"));
 
         // 2. Quien tiene los datos de forma segura en el sistema? VO
-        UsuarioVO usuVO = new UsuarioVO(Id_Usuarios,Nombre, Documento, Telefono, Email, Direccion,
-                Estado, Contrasena);
+        loteMateriaPrimaVO loteMPVO = new loteMateriaPrimaVO(IdLoteMateriaPrima, Cantidad, Observaciones, FechaIngreso, FechaSalida, IdMateriaPrima);
 
         // 3. Quien hace las operaciones? DAO
-        UsuarioDAO usuDAO = new UsuarioDAO(usuVO);
+        loteMateriaPrimaDAO loteMPDAO = new loteMateriaPrimaDAO(loteMPVO);
 
         // 4. Administrar las operaciones del modulo
         switch (opcion) {
 
             case 1: //Agregar registro
 
-                if (usuDAO.agregarRegistro()) {
+                if (loteMPDAO.agregarRegistro()) {
 
-                    request.setAttribute("mensajeExito", "El usuario se registro correctamente!");
+                    request.setAttribute("mensajeExito", "El lote de materia prima se registro correctamente!");
 
                 } else {
 
-                    request.setAttribute("mensajeError", "El usuario no se registro correctamente");
+                    request.setAttribute("mensajeError", "No se pudo registrar");
                 }
-                request.getRequestDispatcher("registrarUsuario.jsp").forward(request, response);
+                request.getRequestDispatcher("registrarLoteMateriaPrima.jsp").forward(request, response);
                 break;
 
             case 2:
 
-                if (usuDAO.actualizarRegistro()) {
+                if (loteMPDAO.actualizarRegistro()) {
 
-                    request.setAttribute("mensajeExito", "El usuario se actualizo correctamente!");
+                    request.setAttribute("mensajeExito", "El lote de materia prima se actualizo correctamente!");
 
                 } else {
 
-                    request.setAttribute("mensajeError", "El usuario no se actualizo correctamente!");
+                    request.setAttribute("mensajeError", "No se pudo actualizar.");
                 }
-                request.getRequestDispatcher("actualizarUsuario.jsp").forward(request, response);
+                request.getRequestDispatcher("actualizarLoteMateriaPrima.jsp").forward(request, response);
                 break;
 
             case 3:
 
-                if (usuDAO.eliminarRegistro()) {
+                if (loteMPDAO.eliminarRegistro()) {
 
-                    request.setAttribute("mensajeExito", "El usuario se elimino correctamente!");
+                    request.setAttribute("mensajeExito", "El lote de materia prima se elimino correctamente!");
 
                 } else {
 
-                    request.setAttribute("mensajeError", "El usuario no se elimino correctamente!");
+                    request.setAttribute("mensajeError", "No se pudo eliminar");
                 }
                 request.getRequestDispatcher("menu.jsp").forward(request, response);
-                break;
-
-            case 4:
-                if (usuDAO.iniciarSesion(Documento, Contrasena)) {
-
-                    request.getRequestDispatcher("menu.jsp").forward(request, response);
-
-                } else {
-
-                    request.setAttribute("mensajeError", "Corregir datos!");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                }
                 break;
                 
                 default:
                     break;
-                
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
