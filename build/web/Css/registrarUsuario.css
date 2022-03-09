@@ -1,0 +1,89 @@
+body{
+    background-image :url(../Imagenes/img1.jpg.jpeg);
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    margin: 0;
+    text-align: center;
+}
+
+h1{
+    color: #fff;
+    text-align: left;
+    margin: 5px;
+    font-size: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form{
+    margin: auto;
+    box-sizing: border-box;
+    border-radius: 20px;
+    width: 350px;
+    height: 510px;
+    position: absolute;
+    top: 30%;
+    margin-top: -120px;
+    left: 50%;
+    margin-left: -200px;
+    padding: 30px 30px;
+    text-align: center;
+    display:inline-block;
+}
+
+.Formulario{
+    border: 1px solid #1f53c5 ;
+    padding: 6px;
+    background-color: #24303c;
+    color: white;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.Formulario input{
+    margin-bottom: 16px;
+    border: 1px solid #1f53c5 ;
+    padding: 6px;
+    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+    width: 80%;
+}
+.Formulario a{
+    position: absolute;
+    top: 95%;
+    margin-top: -50px;
+    left: 10%;
+    margin-left: 0px;
+    color: white;
+}
+
+.mensaje{
+    position: absolute;
+    top: 100%;
+    margin-top: -40px;
+    left: 10%;
+    margin-left: 0px;
+    color: red;
+}
+
+#Boton{
+    width: 85%;
+    height: 7%;
+    margin-bottom: 20px;
+    color: white;
+    background: blue;
+    margin-top: 10px;
+    border-color: white;
+    border-radius: 5px;
+}
+
+#Boton:hover{
+    cursor: pointer;
+    background: chartreuse;
+    color: black;
+    border-color: black;
+}
+
+
+
